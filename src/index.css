@@ -1,0 +1,14 @@
+@import url('modern-normalize/modern-normalize.css');
+
+@import url('./styles/variables.css');
+@import url('./styles/reset.css');
+
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: 100svh;
+
+  display: flex;
+  flex-direction: column;
+}
