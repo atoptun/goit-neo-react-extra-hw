@@ -1,13 +1,12 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useEffect, useId, useRef } from 'react';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
-import { addContact, updateContact } from '../../redux/contactsOps';
-import {
-  cancelEditContact,
-  selectEditingContact,
-} from '../../redux/contactsSlice';
+import { addContact, updateContact } from '../../redux/contacts/operations';
+import { selectEditingContact } from '../../redux/contacts/selectors';
+import { cancelEditContact } from '../../redux/contacts/slice';
 import styles from './ContactForm.module.css';
 
 const ContactSchema = Yup.object().shape({
@@ -53,8 +52,10 @@ function ContactForm() {
     try {
       if (editingContact) {
         await dispatch(updateContact(contactData)).unwrap();
+        toast.success('Contact saved successfully');
       } else {
         await dispatch(addContact(contactData)).unwrap();
+        toast.success('Contact added successfully');
       }
       actions.resetForm();
 

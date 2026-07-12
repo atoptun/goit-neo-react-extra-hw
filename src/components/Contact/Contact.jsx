@@ -1,9 +1,11 @@
 import { Icon } from '@iconify/react';
 import clsx from 'clsx';
+import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deleteContact } from '../../redux/contactsOps';
-import { editContact, selectEditingContact } from '../../redux/contactsSlice';
+import { deleteContact } from '../../redux/contacts/operations';
+import { selectEditingContact } from '../../redux/contacts/selectors';
+import { editContact } from '../../redux/contacts/slice';
 import styles from './Contact.module.css';
 
 function Contact({ contact: { id, name, number } }) {
@@ -16,8 +18,9 @@ function Contact({ contact: { id, name, number } }) {
     dispatch(editContact(id));
   };
 
-  const handleDelete = id => {
-    dispatch(deleteContact(id));
+  const handleDelete = async id => {
+    await dispatch(deleteContact(id)).unwrap();
+    toast.success('Contact deleted successfully');
   };
 
   return (

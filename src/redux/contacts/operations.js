@@ -1,56 +1,71 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const projectId = import.meta.env.VITE_MOCKAPI_PROJECT_ID;
-
-axios.defaults.baseURL = `https://${projectId}.mockapi.io/api/v1`;
-
+/**
+ * GET @ /contacts
+ * headers: Authorization: Bearer token
+ */
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get('/contacts');
-      return response.data;
+      const res = await axios.get('/contacts');
+      return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   },
 );
 
+/**
+ * POST @ /contacts
+ * body: { name, number }
+ * headers: Authorization: Bearer token
+ */
 export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (contact, thunkAPI) => {
     try {
-      const response = await axios.post('/contacts', {
+      const res = await axios.post('/contacts', {
         ...contact,
       });
-      return response.data;
+      return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   },
 );
 
+/**
+ * DELETE @ /contacts/:id
+ * headers: Authorization: Bearer token
+ */
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (contactId, thunkAPI) => {
     try {
-      const response = await axios.delete(`/contacts/${contactId}`);
-      return response.data;
+      const res = await axios.delete(`/contacts/${contactId}`);
+      return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   },
 );
 
+/**
+ * PUT @ /contacts/:id
+ * body: { name, number }
+ * headers: Authorization: Bearer token
+ */
 export const updateContact = createAsyncThunk(
   'contacts/updateContact',
   async (contact, thunkAPI) => {
     try {
-      const response = await axios.put(`/contacts/${contact.id}`, {
-        ...contact,
+      const { id, ...data } = contact;
+      const res = await axios.patch(`/contacts/${id}`, {
+        ...data,
       });
-      return response.data;
+      return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
