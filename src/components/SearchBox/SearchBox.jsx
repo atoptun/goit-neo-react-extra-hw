@@ -1,28 +1,41 @@
-import { useId } from 'react';
-import { useDispatch } from 'react-redux';
+import SearchIcon from '@mui/icons-material/Search';
+import { Box, InputAdornment, TextField } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { selectNameFilter } from '../../redux/filters/selectors';
 import { changeFilter } from '../../redux/filters/slice';
-import styles from './SearchBox.module.css';
 
 function SearchBox() {
-  const searchId = useId();
   const dispatch = useDispatch();
 
-  const handleChange = value => {
-    dispatch(changeFilter(value));
+  const filterValue = useSelector(selectNameFilter) || '';
+
+  const handleChange = event => {
+    dispatch(changeFilter(event.target.value));
   };
 
   return (
-    <div className={styles.searchBox}>
-      <label htmlFor={searchId}>Find contacts by name or phone</label>
-      <input
-        type="text"
+    <Box sx={{ width: '100%', my: 2 }}>
+      <TextField
+        fullWidth
+        variant="outlined"
+        label="Find contacts by name or phone"
         placeholder="Search contacts..."
-        className={styles.searchField}
-        id={searchId}
-        onChange={e => handleChange(e.target.value)}
+        value={filterValue}
+        onChange={handleChange}
+
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          },
+        }}
       />
-    </div>
+    </Box>
   );
 }
+
 export default SearchBox;
