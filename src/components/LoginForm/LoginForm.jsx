@@ -1,41 +1,70 @@
-import { Field, Form, Formik } from 'formik';
-import { useId } from 'react';
+import { Box, Button, Link, Typography } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { FormContainer, TextFieldElement } from 'react-hook-form-mui';
+import { Link as DomLink } from 'react-router-dom';
+
+import { FormCard } from '../FormCard/FormCard.jsx';
+import { debugUser } from './../../utils/debug.js';
+import * as styles from './LoginForm.styles.js';
 
 const initValues = {
-  email: 'user_test_17462@gmail.com',
-  password: 'user_test_17462@gmail.com',
+  email: debugUser?.email || '',
+  password: debugUser?.password || '',
 };
 
 function LoginForm({ onSubmit }) {
-  const formId = useId();
+  const { control, handleSubmit, reset } = useForm({
+    defaultValues: initValues,
+  });
 
-  const handleSubmit = (values, actions) => {
+  const onFormSubmit = values => {
     onSubmit(values);
-    actions.resetForm();
+    reset();
   };
 
   return (
-    <Formik initialValues={initValues} onSubmit={handleSubmit}>
-      <Form>
-        <label htmlFor={`${formId}_email`}>Email:</label>
-        <Field
-          name="email"
-          type="email"
-          id={`${formId}_email`}
-          placeholder="Email"
-        />
-        <br />
-        <label htmlFor={`${formId}_password`}>Password:</label>
-        <Field
-          name="password"
-          type="password"
-          id={`${formId}_password`}
-          placeholder="Password"
-        />
-        <br />
-        <button type="submit">Login</button>
-      </Form>
-    </Formik>
+    <FormCard variant="outlined">
+      <Box sx={styles.formCardBox}>
+        <Typography variant="h4" component="h1" sx={styles.captionTypo}>
+          Sign in
+        </Typography>
+        <FormContainer onSuccess={handleSubmit(onFormSubmit)}>
+          <Box sx={styles.formBox}>
+            <TextFieldElement
+              name="email"
+              type="email"
+              label="Email"
+              placeholder="Email"
+              required
+              fullWidth
+              control={control}
+            />
+
+            <TextFieldElement
+              name="password"
+              type="password"
+              label="Password"
+              placeholder="Password"
+              required
+              fullWidth
+              control={control}
+            />
+
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              Sign in
+            </Button>
+
+            <Typography align="center">
+              Don't have an account?{' '}
+              <Link component={DomLink} to="/register">
+                Sign up
+              </Link>
+            </Typography>
+          </Box>
+        </FormContainer>
+      </Box>
+    </FormCard>
   );
 }
+
 export default LoginForm;

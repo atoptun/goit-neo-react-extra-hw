@@ -20,3 +20,10 @@ export const selectLoading = state => state.contacts.loading;
 export const selectError = state => state.contacts.error;
 
 export const selectEditingContact = state => state.contacts.editingContact;
+
+export const selectIsEditDialogOpen = state => state.contacts.isEditDialogOpen;
+
+export const selectDeletingContact = state => state.contacts.deletingContact;
+
+export const selectIsDeleteDialogOpen = state =>
+  state.contacts.isDeleteDialogOpen;
