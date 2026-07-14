@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 
 import LoginForm from '../../components/LoginForm/LoginForm';
-import { logIn } from '../../redux/auth/operators';
+import { logIn } from '../../redux/auth/operations';
 import * as styles from './LoginPage.styles.js';
 
 function LoginPage() {

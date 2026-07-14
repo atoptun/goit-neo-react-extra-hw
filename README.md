@@ -95,7 +95,7 @@ src/
 │   └── ErrorPage/          # Router-level error boundary
 ├── redux/
 │   ├── auth/
-│   │   ├── operators.js    # Async thunks: register, logIn, logOut, refreshUser
+│   │   ├── operations.js    # Async thunks: register, logIn, logOut, refreshUser
 │   │   ├── selectors.js    # Auth state selectors
 │   │   └── slice.js        # Auth slice (token, isLoggedIn, isRefreshing)
 │   ├── contacts/
@@ -141,7 +141,7 @@ The store holds three slices. Only the auth token is persisted to
 }
 ```
 
-### Auth operations (`redux/auth/operators.js`)
+### Auth operations (`redux/auth/operations.js`)
 
 All thunks target `https://connections-api.goit.global`.
 
