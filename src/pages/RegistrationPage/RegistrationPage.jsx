@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
-import { register } from '../../redux/auth/operators';
+import { register } from '../../redux/auth/operations';
 import * as styles from './RegistrationPage.styles.js';
 
 function RegistrationPage() {

@@ -2,7 +2,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Box, Button, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { logOut } from '../../redux/auth/operators';
+import { logOut } from '../../redux/auth/operations';
 import { selectUser } from '../../redux/auth/selectors';
 import * as styles from './UserMenu.styles.js';
 
